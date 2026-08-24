@@ -88,7 +88,7 @@ That's basically it.
 
 ## live demo
 
-[**Open study planner →**](https://imaginative-sopapillas-af0957.netlify.app/)
+[**Open study planner →**](https://coffee-study-planner.netlify.app/)
 
 ## project structure
 ```text
