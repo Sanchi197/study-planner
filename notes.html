@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>coffee notes · brew ideas ☕</title>
+
+    <link rel="stylesheet" href="notes.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- cozy notebook ambiance -->
+    <div class="notebook-ambiance">
+      <div class="paper-texture"></div>
+      <div class="coffee-stain stain-1"></div>
+      <div class="coffee-stain stain-2"></div>
+      <div class="floating-paper"></div>
+    </div>
+
+    <!-- navigation -->
+    <nav class="nav">
+      <div class="nav-container">
+        <a href="index.html" class="logo">
+          <i class="fas fa-mug-saucer"></i>
+          brew<span>notes</span>
+        </a>
+        <div class="nav-links">
+          <a href="planner.html"
+            ><i class="fas fa-calendar-check"></i> planner</a
+          >
+          <a href="pomodoro.html"
+            ><i class="fas fa-hourglass-half"></i> timer</a
+          >
+          <a href="notes.html" class="active"
+            ><i class="fas fa-pen"></i> notes</a
+          >
+          <a href="resources.html"><i class="fas fa-book"></i> resources</a>
+        </div>
+        <div class="nav-right">
+          <div class="streak">
+            <i class="fas fa-fire"></i>
+            <span id="streakDisplay">3</span>
+          </div>
+          <div class="avatar">
+            <i class="fas fa-circle-user"></i>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- page header -->
+    <header class="notes-header">
+      <div class="header-content">
+        <h1><i class="fas fa-feather"></i> coffee notes</h1>
+        <p>jot down ideas, lecture notes, and coffee thoughts ✍️☕</p>
+      </div>
+    </header>
+
+    <main class="notes-main">
+      <!-- left sidebar - notebooks & categories -->
+      <aside class="notes-sidebar">
+        <!-- new note button -->
+        <button id="newNoteBtn" class="new-note-btn">
+          <i class="fas fa-plus-circle"></i>
+          brew new note
+        </button>
+
+        <!-- notebooks (categories) -->
+        <div class="notebooks-section">
+          <h3><i class="fas fa-book"></i> my notebooks</h3>
+          <ul class="notebook-list" id="notebookList">
+            <li class="notebook-item active" data-category="all">
+              <i class="fas fa-notebook"></i>
+              all notes
+              <span class="note-count" id="allCount">0</span>
+            </li>
+            <li class="notebook-item" data-category="lecture">
+              <i class="fas fa-chalkboard"></i>
+              lecture notes
+              <span class="note-count" id="lectureCount">0</span>
+            </li>
+            <li class="notebook-item" data-category="summary">
+              <i class="fas fa-list-alt"></i>
+              study summaries
+              <span class="note-count" id="summaryCount">0</span>
+            </li>
+            <li class="notebook-item" data-category="ideas">
+              <i class="fas fa-lightbulb"></i>
+              coffee ideas
+              <span class="note-count" id="ideasCount">0</span>
+            </li>
+            <li class="notebook-item" data-category="todo">
+              <i class="fas fa-check-square"></i>
+              study to-do
+              <span class="note-count" id="todoCount">0</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- tags / subjects -->
+        <div class="tags-section">
+          <h3><i class="fas fa-tags"></i> subjects</h3>
+          <div class="tag-cloud" id="tagCloud">
+            <!-- tags will appear here -->
+          </div>
+        </div>
+
+        <!-- recent notes preview -->
+        <div class="recent-section">
+          <h3><i class="fas fa-history"></i> recently brewed</h3>
+          <div id="recentNotes" class="recent-list">
+            <!-- recent notes will appear here -->
+          </div>
+        </div>
+      </aside>
+
+      <!-- main notes area -->
+      <div class="notes-workspace">
+        <!-- search bar -->
+        <div class="search-bar">
+          <i class="fas fa-search"></i>
+          <input
+            type="text"
+            id="searchNotes"
+            placeholder="search your notes..."
+          />
+          <div class="search-filters">
+            <select id="sortNotes">
+              <option value="newest">newest first</option>
+              <option value="oldest">oldest first</option>
+              <option value="title">by title</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- notes grid / editor toggle -->
+        <div id="notesView" class="notes-view">
+          <!-- notes grid will be here -->
+        </div>
+
+        <!-- note editor (hidden by default) -->
+        <div id="noteEditor" class="note-editor hidden">
+          <div class="editor-header">
+            <input type="text" id="noteTitle" placeholder="note title..." />
+            <div class="editor-actions">
+              <button id="saveNote" class="save-btn">
+                <i class="fas fa-save"></i> save note
+              </button>
+              <button id="cancelEdit" class="cancel-btn">
+                <i class="fas fa-times"></i> cancel
+              </button>
+            </div>
+          </div>
+
+          <div class="editor-toolbar">
+            <button class="tool-btn" data-command="bold">
+              <i class="fas fa-bold"></i>
+            </button>
+            <button class="tool-btn" data-command="italic">
+              <i class="fas fa-italic"></i>
+            </button>
+            <button class="tool-btn" data-command="underline">
+              <i class="fas fa-underline"></i>
+            </button>
+            <button class="tool-btn" data-command="insertUnorderedList">
+              <i class="fas fa-list-ul"></i>
+            </button>
+            <button class="tool-btn" data-command="insertOrderedList">
+              <i class="fas fa-list-ol"></i>
+            </button>
+            <button class="tool-btn" data-command="h1">
+              <i class="fas fa-heading"></i> H1
+            </button>
+            <button class="tool-btn" data-command="h2">
+              <i class="fas fa-heading"></i> H2
+            </button>
+            <select class="tool-select" id="noteCategory">
+              <option value="lecture">📝 lecture notes</option>
+              <option value="summary">📚 study summary</option>
+              <option value="ideas">💡 coffee ideas</option>
+              <option value="todo">✅ study to-do</option>
+            </select>
+          </div>
+
+          <div
+            id="noteContent"
+            class="editor-content"
+            contenteditable="true"
+          ></div>
+
+          <div class="editor-footer">
+            <div class="note-meta">
+              <span id="wordCount">0 words</span>
+              <span id="charCount">0 characters</span>
+            </div>
+            <div class="coffee-reminder">
+              <i class="fas fa-mug-hot"></i>
+              <span id="typingTip">writing makes you thirsty...</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- coffee break modal for notes -->
+    <div id="coffeeNoteModal" class="modal">
+      <div class="modal-content notebook-modal">
+        <i class="fas fa-feather"></i>
+        <h2>great ideas brewing! ☕</h2>
+        <p>you've written 500 words. time to stretch and refill your coffee?</p>
+        <div class="modal-buttons">
+          <button onclick="closeNoteModal()" class="secondary-btn">
+            keep writing
+          </button>
+          <button onclick="takeCoffeeBreak()" class="primary-btn">
+            <i class="fas fa-mug-hot"></i> coffee break
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="notes.js"></script>
+  </body>
+</html>

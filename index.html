@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>brew planner · coffee study cafe</title>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="planner.css" />
+
+    <!-- Fonts & Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- floating coffee beans background -->
+    <div class="bg-ambiance">
+      <div class="bean bean-1">🫘</div>
+      <div class="bean bean-2">🫘</div>
+      <div class="bean bean-3">🫘</div>
+      <div class="steam steam-1"></div>
+      <div class="steam steam-2"></div>
+    </div>
+
+    <!-- main navigation -->
+    <nav class="nav">
+      <div class="nav-container">
+        <a href="index.html" class="logo">
+          <i class="fas fa-mug-saucer"></i>
+          brew<span>study</span>
+        </a>
+        <div class="nav-links">
+          <a href="planner.html" class="active"
+            ><i class="fas fa-calendar-check"></i> planner</a
+          >
+          <a href="pomodoro.html"
+            ><i class="fas fa-hourglass-half"></i> timer</a
+          >
+          <a href="notes.html"><i class="fas fa-pen"></i> notes</a>
+          <a href="resources.html"><i class="fas fa-book"></i> resources</a>
+        </div>
+        <div class="nav-right">
+          <div class="streak">
+            <i class="fas fa-fire"></i>
+            <span id="streakDisplay">3</span>
+          </div>
+          <div class="avatar">
+            <i class="fas fa-circle-user"></i>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- page header -->
+    <header class="page-header">
+      <div class="header-content">
+        <h1>study planner ☕</h1>
+        <p>organize your tasks · track progress · earn coffee breaks</p>
+        <div class="coffee-level">
+          <span>today's coffee level</span>
+          <div class="level-meter">
+            <div class="level-fill" id="coffeeMeter" style="width: 0%"></div>
+          </div>
+          <span class="level-percent" id="coffeePercent">0%</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="planner-main">
+      <!-- left sidebar - coffee shop details -->
+      <aside class="planner-sidebar">
+        <!-- cafe special -->
+        <div class="cafe-card">
+          <div class="cafe-special">
+            <i class="fas fa-mug-hot"></i>
+            <div>
+              <h4>today's brew</h4>
+              <p id="todaysCoffee">caramel latte</p>
+            </div>
+          </div>
+          <div class="cafe-quote">
+            <i class="fas fa-quote-left"></i>
+            <p id="motivationPhrase">one task at a time, one sip at a time</p>
+          </div>
+        </div>
+
+        <!-- quick stats -->
+        <div class="stats-card">
+          <h4><i class="fas fa-chart-simple"></i> quick stats</h4>
+          <div class="stat-item">
+            <span>total tasks</span>
+            <strong id="totalTasksStat">0</strong>
+          </div>
+          <div class="stat-item">
+            <span>completed</span>
+            <strong id="completedTasksStat">0</strong>
+          </div>
+          <div class="stat-item">
+            <span>focus time</span>
+            <strong id="focusTimeStat">0m</strong>
+          </div>
+          <div class="stat-item">
+            <span>coffee breaks</span>
+            <strong id="coffeeBreaksStat">0</strong>
+          </div>
+        </div>
+
+        <!-- upcoming deadlines (coffee stain style) -->
+        <div class="deadlines-card">
+          <h4><i class="fas fa-clock"></i> brewing soon</h4>
+          <div id="upcomingDeadlines" class="deadlines-list">
+            <!-- deadlines will appear here -->
+          </div>
+        </div>
+
+        <!-- coffee tip -->
+        <div class="tip-card">
+          <i class="fas fa-lightbulb"></i>
+          <p id="coffeeTip">finish 3 tasks = coffee break!</p>
+        </div>
+      </aside>
+
+      <!-- main content area -->
+      <div class="planner-content">
+        <!-- add task form (like ordering coffee) -->
+        <div class="order-card">
+          <h3><i class="fas fa-pen"></i> brew a new task</h3>
+          <form id="taskForm" class="order-form">
+            <div class="form-row">
+              <div class="input-group">
+                <i class="fas fa-pencil"></i>
+                <input
+                  type="text"
+                  id="taskName"
+                  placeholder="task name"
+                  required
+                />
+              </div>
+              <div class="input-group">
+                <i class="fas fa-book"></i>
+                <input
+                  type="text"
+                  id="taskSubject"
+                  placeholder="subject"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="input-group">
+                <i class="fas fa-flag"></i>
+                <select id="taskPriority">
+                  <option value="high">🔴 high priority</option>
+                  <option value="medium">🟡 medium priority</option>
+                  <option value="low">🟢 low priority</option>
+                </select>
+              </div>
+              <div class="input-group">
+                <i class="fas fa-calendar"></i>
+                <input type="date" id="taskDeadline" required />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="input-group">
+                <i class="fas fa-tag"></i>
+                <select id="taskCategory">
+                  <option value="exam">📝 exam prep</option>
+                  <option value="assignment">📚 assignment</option>
+                  <option value="reading">📖 reading</option>
+                  <option value="project">💻 project</option>
+                </select>
+              </div>
+              <div class="input-group">
+                <i class="fas fa-clock"></i>
+                <input
+                  type="number"
+                  id="taskHours"
+                  placeholder="est. hours"
+                  min="0.5"
+                  step="0.5"
+                />
+              </div>
+            </div>
+
+            <button type="submit" class="brew-btn">
+              <i class="fas fa-mug-hot"></i>
+              brew task
+            </button>
+          </form>
+        </div>
+
+        <!-- filter and sort (like coffee menu) -->
+        <div class="menu-controls">
+          <div class="filter-group">
+            <button class="filter-btn active" data-filter="all">
+              <i class="fas fa-list"></i> all
+            </button>
+            <button class="filter-btn" data-filter="pending">
+              <i class="fas fa-hourglass"></i> brewing
+            </button>
+            <button class="filter-btn" data-filter="completed">
+              <i class="fas fa-check"></i> finished
+            </button>
+          </div>
+          <div class="sort-group">
+            <select id="sortTasks">
+              <option value="deadline">sort by deadline</option>
+              <option value="priority">sort by priority</option>
+              <option value="subject">sort by subject</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- tasks grid (coffee menu style) -->
+        <div class="menu-grid" id="tasksContainer">
+          <!-- tasks will appear here -->
+        </div>
+      </div>
+    </main>
+
+    <!-- coffee break modal -->
+    <div id="coffeeBreakModal" class="modal">
+      <div class="modal-content">
+        <i class="fas fa-mug-hot"></i>
+        <h2>time for a coffee break!</h2>
+        <p>you've completed 3 tasks. take 5 minutes to refresh.</p>
+        <button class="modal-btn" onclick="closeCoffeeModal()">
+          <i class="fas fa-check"></i> i'll be right back
+        </button>
+      </div>
+    </div>
+
+    <script src="planner.js"></script>
+  </body>
+</html>

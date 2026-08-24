@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>coffee library · study resources ☕</title>
+
+    <link rel="stylesheet" href="resources.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- cozy library ambiance (same as notes) -->
+    <div class="library-ambiance">
+      <div class="paper-texture"></div>
+      <div class="coffee-stain stain-1"></div>
+      <div class="coffee-stain stain-2"></div>
+      <div class="floating-book">📚</div>
+      <div class="floating-book">📖</div>
+    </div>
+
+    <!-- navigation (same as all pages) -->
+    <nav class="nav">
+      <div class="nav-container">
+        <a href="index.html" class="logo">
+          <i class="fas fa-mug-saucer"></i>
+          brew<span>library</span>
+        </a>
+        <div class="nav-links">
+          <a href="planner.html"
+            ><i class="fas fa-calendar-check"></i> planner</a
+          >
+          <a href="pomodoro.html"
+            ><i class="fas fa-hourglass-half"></i> timer</a
+          >
+          <a href="notes.html"><i class="fas fa-pen"></i> notes</a>
+          <a href="resources.html" class="active"
+            ><i class="fas fa-book"></i> resources</a
+          >
+        </div>
+        <div class="nav-right">
+          <div class="streak">
+            <i class="fas fa-fire"></i>
+            <span id="streakDisplay">3</span>
+          </div>
+          <div class="avatar">
+            <i class="fas fa-circle-user"></i>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- page header (same style as notes) -->
+    <header class="resources-header">
+      <div class="header-content">
+        <h1><i class="fas fa-book-open"></i> coffee library</h1>
+        <p>save your pdfs · links · videos · flashcards</p>
+      </div>
+    </header>
+
+    <main class="resources-main">
+      <!-- LEFT SIDEBAR - Categories & Filters (like notes) -->
+      <aside class="resources-sidebar">
+        <!-- add resource button -->
+        <button id="addResourceBtn" class="add-resource-btn">
+          <i class="fas fa-plus-circle"></i>
+          add resource
+        </button>
+
+        <!-- resource types / filters -->
+        <div class="filters-section">
+          <h3><i class="fas fa-filter"></i> filter by type</h3>
+          <ul class="filter-list" id="filterList">
+            <li class="filter-item active" data-filter="all">
+              <i class="fas fa-layer-group"></i>
+              all resources
+              <span class="filter-count" id="totalCount">0</span>
+            </li>
+            <li class="filter-item" data-filter="pdf">
+              <i class="fas fa-file-pdf"></i>
+              pdfs
+              <span class="filter-count" id="pdfCount">0</span>
+            </li>
+            <li class="filter-item" data-filter="link">
+              <i class="fas fa-link"></i>
+              links
+              <span class="filter-count" id="linkCount">0</span>
+            </li>
+            <li class="filter-item" data-filter="video">
+              <i class="fas fa-video"></i>
+              videos
+              <span class="filter-count" id="videoCount">0</span>
+            </li>
+            <li class="filter-item" data-filter="flashcard">
+              <i class="fas fa-cards"></i>
+              flashcards
+              <span class="filter-count" id="flashcardCount">0</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- subjects filter (dynamic) -->
+        <div class="subjects-section">
+          <h3><i class="fas fa-bookmark"></i> subjects</h3>
+          <div class="subjects-list" id="subjectsList">
+            <!-- subjects will appear here -->
+          </div>
+        </div>
+      </aside>
+
+      <!-- RIGHT MAIN AREA - Resources Grid -->
+      <div class="resources-workspace">
+        <!-- search bar (like notes) -->
+        <div class="search-bar">
+          <i class="fas fa-search"></i>
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="search your library..."
+          />
+          <select id="sortSelect">
+            <option value="newest">newest first</option>
+            <option value="oldest">oldest first</option>
+            <option value="title">by title</option>
+          </select>
+        </div>
+
+        <!-- resources grid -->
+        <div id="resourcesGrid" class="resources-grid">
+          <!-- resources will appear here -->
+        </div>
+      </div>
+    </main>
+
+    <!-- ADD RESOURCE MODAL (simple popup) -->
+    <div id="resourceModal" class="modal">
+      <div class="modal-content">
+        <h2><i class="fas fa-plus-circle"></i> add new resource</h2>
+
+        <form id="resourceForm">
+          <div class="form-group">
+            <label>title</label>
+            <input
+              type="text"
+              id="title"
+              required
+              placeholder="e.g. Calculus Chapter 1"
+            />
+          </div>
+
+          <div class="form-group">
+            <label>subject</label>
+            <input
+              type="text"
+              id="subject"
+              required
+              placeholder="e.g. Mathematics"
+            />
+          </div>
+
+          <div class="form-group">
+            <label>type</label>
+            <select id="type" required>
+              <option value="pdf">📄 PDF</option>
+              <option value="link">🔗 Link</option>
+              <option value="video">🎥 Video</option>
+              <option value="flashcard">🎴 Flashcards</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>url / link</label>
+            <input type="url" id="url" placeholder="https://..." />
+          </div>
+          <div class="form-group">
+            <label>or upload file</label>
+            <div class="file-upload-area">
+              <input type="file" id="fileUpload" style="display: none" />
+              <button type="button" id="fileUploadBtn" class="file-upload-btn">
+                <i class="fas fa-cloud-upload-alt"></i> choose file
+              </button>
+              <span id="fileName" class="file-name">no file chosen</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>tags (comma separated)</label>
+            <input type="text" id="tags" placeholder="math, exam, chapter1" />
+          </div>
+
+          <!-- flashcard section (shown only when flashcard selected) -->
+          <div id="flashcardSection" class="flashcard-section hidden">
+            <label>flashcards</label>
+            <div id="flashcardPairs">
+              <div class="flashcard-pair">
+                <input type="text" class="term" placeholder="term" />
+                <input
+                  type="text"
+                  class="definition"
+                  placeholder="definition"
+                />
+                <button type="button" class="remove-pair">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+            </div>
+            <button type="button" id="addPairBtn" class="add-pair-btn">
+              <i class="fas fa-plus"></i> add card
+            </button>
+          </div>
+
+          <div class="modal-actions">
+            <button type="button" class="cancel-btn" onclick="closeModal()">
+              cancel
+            </button>
+            <button type="submit" class="save-btn">save resource</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- FLASHCARD STUDY MODAL -->
+    <div id="flashcardModal" class="modal">
+      <div class="modal-content flashcard-content">
+        <h2 id="flashcardTitle"></h2>
+        <div class="flashcard-container">
+          <div class="flashcard" id="flashcard">
+            <div class="flashcard-front" id="flashcardFront"></div>
+            <div class="flashcard-back" id="flashcardBack"></div>
+          </div>
+        </div>
+        <div class="flashcard-controls">
+          <span id="flashcardCounter">1 / 1</span>
+          <div>
+            <button id="prevCard" class="flashcard-btn">
+              <i class="fas fa-chevron-left"></i>
+            </button>
+            <button id="flipCard" class="flashcard-btn">
+              <i class="fas fa-sync-alt"></i> flip
+            </button>
+            <button id="nextCard" class="flashcard-btn">
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+          <button class="close-flashcard-btn" onclick="closeFlashcardModal()">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="resources.js"></script>
+  </body>
+</html>

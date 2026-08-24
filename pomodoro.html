@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>coffee timer · brew focus</title>
+
+    <link rel="stylesheet" href="pomodoro.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- coffee shop atmosphere -->
+    <div class="cafe-ambiance">
+      <div class="steam-large"></div>
+      <div class="steam-large delay"></div>
+      <div class="coffee-ring"></div>
+      <div class="beans-bg"></div>
+    </div>
+
+    <!-- navigation -->
+    <nav class="nav">
+      <div class="nav-container">
+        <a href="index.html" class="logo">
+          <i class="fas fa-mug-saucer"></i>
+          brew<span>focus</span>
+        </a>
+        <div class="nav-links">
+          <a href="planner.html"
+            ><i class="fas fa-calendar-check"></i> planner</a
+          >
+          <a href="pomodoro.html" class="active"
+            ><i class="fas fa-hourglass-half"></i> timer</a
+          >
+          <a href="notes.html"><i class="fas fa-pen"></i> notes</a>
+          <a href="resources.html"><i class="fas fa-book"></i> resources</a>
+        </div>
+        <div class="nav-right">
+          <div class="streak">
+            <i class="fas fa-fire"></i>
+            <span id="streakDisplay">3</span>
+          </div>
+          <div class="avatar">
+            <i class="fas fa-circle-user"></i>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- main timer section -->
+    <main class="timer-page">
+      <div class="timer-container">
+        <!-- decorative coffee cup -->
+        <!-- decorative coffee cup - FIXED WITH STEAM -->
+        <div class="coffee-cup-decoration">
+          <div class="cup">
+            <div class="cup-handle"></div>
+            <div class="coffee-liquid" id="coffeeLiquid"></div>
+          </div>
+          <div class="saucer"></div>
+          <div class="steam-container">
+            <div class="steam-particle"></div>
+            <div class="steam-particle"></div>
+            <div class="steam-particle"></div>
+            <div class="steam-particle"></div>
+            <div class="steam-particle"></div>
+          </div>
+        </div>
+
+        <!-- timer card -->
+        <div class="timer-card">
+          <!-- mode selector -->
+          <div class="timer-modes">
+            <button class="mode-btn active" data-mode="pomodoro">
+              <i class="fas fa-mug-hot"></i>
+              <span>focus brew</span>
+              <small>25 min</small>
+            </button>
+            <button class="mode-btn" data-mode="shortBreak">
+              <i class="fas fa-coffee"></i>
+              <span>short sip</span>
+              <small>5 min</small>
+            </button>
+            <button class="mode-btn" data-mode="longBreak">
+              <i class="fas fa-mug-saucer"></i>
+              <span>long pour</span>
+              <small>15 min</small>
+            </button>
+          </div>
+
+          <!-- timer display -->
+          <div class="timer-display" id="timerDisplay">
+            <span id="minutes">25</span>
+            <span>:</span>
+            <span id="seconds">00</span>
+          </div>
+
+          <!-- timer controls -->
+          <div class="timer-controls">
+            <button id="startTimer" class="control-btn primary">
+              <i class="fas fa-play"></i>
+              start brewing
+            </button>
+            <button id="pauseTimer" class="control-btn secondary">
+              <i class="fas fa-pause"></i>
+              pause
+            </button>
+            <button id="resetTimer" class="control-btn secondary">
+              <i class="fas fa-rotate-right"></i>
+              reset
+            </button>
+          </div>
+
+          <!-- session counter -->
+          <div class="session-counter">
+            <span>focus sessions today:</span>
+            <span id="sessionCount">0</span>
+            <i class="fas fa-mug-hot"></i>
+          </div>
+        </div>
+
+        <!-- coffee break tracker -->
+        <div class="coffee-tracker">
+          <div class="tracker-label">
+            <i class="fas fa-heart"></i>
+            <span>coffee breaks taken</span>
+          </div>
+          <div class="coffee-cups" id="coffeeCups">
+            <i class="fas fa-mug-hot empty"></i>
+            <i class="fas fa-mug-hot empty"></i>
+            <i class="fas fa-mug-hot empty"></i>
+            <i class="fas fa-mug-hot empty"></i>
+          </div>
+        </div>
+
+        <!-- ✨ NEW: Pomodoro explanation card -->
+        <div class="pomodoro-info-card">
+          <div class="info-header">
+            <i class="fas fa-info-circle"></i>
+            <span>☕ how pomodoro works here</span>
+          </div>
+          <div class="info-steps">
+            <div class="info-step">
+              <div class="step-icon">--></div>
+              <div class="step-text">25 min focus = 1 coffee cup</div>
+            </div>
+            <div class="info-step">
+              <div class="step-icon">--></div>
+              <div class="step-text">4 coffee cups = long break (15 min)</div>
+            </div>
+            <div class="info-step">
+              <div class="step-icon">☕</div>
+              <div class="step-text">sip & relax after every session!</div>
+            </div>
+          </div>
+          <div class="info-footer">
+            <i class="fas fa-mug-hot"></i>
+            <span>every cup = a well-deserved break</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- side panel - coffee shop info -->
+      <aside class="cafe-sidebar">
+        <!-- now brewing -->
+        <div class="brewing-card">
+          <h4><i class="fas fa-fire"></i> now brewing</h4>
+          <div class="brewing-suggestion" id="brewingSuggestion">
+            <p class="suggestion-text">
+              time to focus on your high priority task
+            </p>
+            <span class="suggestion-tag">from your planner</span>
+          </div>
+        </div>
+
+        <!-- study sounds (cafe ambience) -->
+        <div class="sounds-card">
+          <h4><i class="fas fa-headphones"></i> cafe sounds</h4>
+          <div class="sound-buttons">
+            <button class="sound-btn active" data-sound="cafe">
+              <i class="fas fa-store"></i>
+              <span>cafe</span>
+            </button>
+            <button class="sound-btn" data-sound="rain">
+              <i class="fas fa-cloud-rain"></i>
+              <span>rain</span>
+            </button>
+            <button class="sound-btn" data-sound="lofi">
+              <i class="fas fa-headphones"></i>
+              <span>lofi</span>
+            </button>
+            <button class="sound-btn" data-sound="fire">
+              <i class="fas fa-fire"></i>
+              <span>fireplace</span>
+            </button>
+            <button class="sound-btn" data-sound="none">
+              <i class="fas fa-volume-xmark"></i>
+              <span>silent</span>
+            </button>
+          </div>
+          <div class="volume-control">
+            <i class="fas fa-volume-low"></i>
+            <input
+              type="range"
+              id="volumeSlider"
+              min="0"
+              max="100"
+              value="50"
+            />
+            <i class="fas fa-volume-high"></i>
+          </div>
+        </div>
+
+        <!-- coffee quotes -->
+        <div class="quote-card">
+          <i class="fas fa-quote-left"></i>
+          <p id="cafeQuote">"coffee is the best study partner"</p>
+          <span class="quote-author">- cafe wisdom</span>
+        </div>
+
+        <!-- mini task list -->
+        <div class="mini-tasks-card">
+          <h4><i class="fas fa-list-check"></i> today's brew list</h4>
+          <div id="miniTaskList" class="mini-task-list">
+            <!-- tasks from planner will appear here -->
+          </div>
+          <a href="planner.html" class="view-all-link">
+            view all tasks <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+      </aside>
+    </main>
+
+    <!-- coffee break celebration modal -->
+    <div id="coffeeCelebration" class="celebration-modal">
+      <div class="celebration-content">
+        <i class="fas fa-mug-hot"></i>
+        <h2>coffee break achieved! ☕</h2>
+        <p>you've completed a focus session. time to relax and sip.</p>
+        <div class="celebration-buttons">
+          <button onclick="startBreak()" class="primary-btn">
+            <i class="fas fa-coffee"></i> take a break
+          </button>
+          <button onclick="closeCelebration()" class="secondary-btn">
+            continue focus
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="pomodoro.js"></script>
+  </body>
+</html>
